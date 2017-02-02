@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201150849) do
+ActiveRecord::Schema.define(version: 20170202133451) do
 
   create_table "patients", force: :cascade do |t|
     t.string   "name"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20170201150849) do
     t.string   "county"
     t.string   "town"
     t.boolean  "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
   end
 
 end
