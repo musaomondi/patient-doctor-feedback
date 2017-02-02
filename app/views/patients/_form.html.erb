@@ -12,6 +12,7 @@
     <% end %>
     <%= f.label :name %>
     <%= f.text_field :name %>
+
     <%= f.label :age %>
     <%= f.number_field :age %>
 
@@ -24,7 +25,13 @@
     <%= f.label :town %>
     <%= f.text_field :town %>
 
-    <%= f.label :married %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+
+    <%= f.label :password_confirmation, "Confirm password" %>
+    <%= f.password_field :password_confirmation %>
+
+    <%= f.label :status, "Married" %>
     <%= f.check_box :status %>
 
     <%= f.submit "create my account", class: "btn btn-primary" %>
