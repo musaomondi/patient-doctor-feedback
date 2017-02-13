@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  before_filter :authenticate
+  before_filter :correct_user, :only => [:edit, :update, :change_password, :update_password]
+  before_filter :authenticate_admin, :only => [:create, :index, :new]
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -15,6 +19,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    getUserTypes
   end
 
   # GET /users/1/edit
