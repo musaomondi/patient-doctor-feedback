@@ -11,6 +11,8 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.json
   def show
+    @user_patients = @patient.user_patients.reverse.paginate(:page => params[:page], :per_page => 5)
+    @enableInvoice = @patient.user_patients.where("archive is null").size
   end
 
   # GET /patients/new
