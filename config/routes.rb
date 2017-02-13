@@ -10,6 +10,15 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  resources :patients
+  resources :patients  do
+    member do
+      get :generate_invoice
+      resources :user_patients do
+        member do
+          get :fetch
+        end
+      end
+    end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
