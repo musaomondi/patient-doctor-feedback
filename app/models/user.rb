@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
+  belongs_to :user_type, :foreign_key => :user_type_id
   before_save { email.downcase!  }
   validates :first_name, presence: true, length: { maximum: 30  }
   validates :last_name, presence: true, length: { maximum: 30 }
