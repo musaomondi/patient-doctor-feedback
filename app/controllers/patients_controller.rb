@@ -66,6 +66,43 @@ class PatientsController < ApplicationController
   def search
   end
 
+  def searchPatients
+    search_by_first_name = params[:patient][:first_name]
+    search_by_last_name = params[:patient][:last_name]
+    search_by_id = params[:patient][:patient_id]
+    search_by_email_id = params[:patient][:email_id]
+    sql = String.new
+
+    if !search_by_id.blank?
+      sql = "id = " + search_by_id
+    end
+    if !search_by_email_id.blank?
+      if sql.blank?
+        sql += "email_id like '%"+ search_by_email_id + "%'"
+      else
+        sql += " or email_id like '%"+ search_by_email_id + "%'"
+      end
+    end
+    if !search_by_first_name.blank?
+      if sql.blank?
+        sql += "first_name like '%"+ search_by_first_name + "%'"
+      else
+        sql += " or first_name like '%"+ search_by_first_name + "%'"
+      end
+    end
+
+    if !search_by_last_name.blank?
+      if sql.blank?
+        sql += "last_name like '%"+ search_by_last_name + "%'"
+      else
+        sql += " or last_name like '%"+ search_by_last_name + "%'"
+      end
+    end
+
+    if !sql.blank?
+      @patients = Patient.where(sql).paginate(:page => params[:page], :per_page => 5)
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient
