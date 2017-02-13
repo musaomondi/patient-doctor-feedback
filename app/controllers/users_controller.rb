@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:edit, :update, :index]
   before_filter :authenticate
   before_action :correct_user, :only => [:edit, :update]
   before_filter :authenticate_admin, :only => [:create, :index, :new]
