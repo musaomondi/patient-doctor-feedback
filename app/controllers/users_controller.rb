@@ -83,7 +83,7 @@ class UsersController < ApplicationController
   end
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless @user == current_user
+    redirect_to(root_url) unless current_user?(@user)
   end
 
   # Use callbacks to share common setup or constraints between actions.
