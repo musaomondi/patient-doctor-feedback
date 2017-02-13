@@ -103,6 +103,19 @@ class PatientsController < ApplicationController
       @patients = Patient.where(sql).paginate(:page => params[:page], :per_page => 5)
     end
   end
+
+  def generate_invoice
+    @patient = Patient.find(params[:id])
+    @user_patients  = @patient.user_patients.where("archive is null")
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = HmsPdfDocument.new(SessionsHelper::FOR_PATIENT, @user_patients, view_context)
+        @user_patients.update_all :archive => SessionsHelper::ARCHIVE
+        send_data pdf.render, filename: "invoice_summary_#{@patient.id}.pdf", type: "application/pdf"
+      end
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient
