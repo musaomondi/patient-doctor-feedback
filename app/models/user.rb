@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
-  belongs_to :user_type, :foreign_key => :user_type_id
+  # belongs_to :user_type, :foreign_key => :user_type_id
   has_many :user_patients
   has_many :patients, :through => :user_patients
   before_save { email.downcase!  }

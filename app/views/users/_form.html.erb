@@ -20,6 +20,8 @@
   <%= f.label :email %>
   <%= f.text_field :email %>
 
+  <%=f.label :user_type%>
+  <%=f.select :user_type_id, ['ADMIN', 'DOCTOR', 'STAFF'] %>
   <%= f.label :password %>
   <%= f.password_field :password %>
 

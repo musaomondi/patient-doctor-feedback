@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :index]
-  before_filter :authenticate
+  # before_filter :authenticate
   before_action :correct_user, :only => [:edit, :update]
-  before_filter :authenticate_admin, :only => [:create, :index, :new]
+  # before_filter :authenticate_admin, :only => [:create, :index, :new]
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -37,10 +37,8 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
-        remember user
-        log_in user
-        flash[:success] = "Welcome to ...."
-        redirect_to user
+        remember @user
+        log_in @user
       else
         getUserTypes
         format.html { render :new }
@@ -94,7 +92,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :email, :user_type, :password, :password_confirmation)
   end
   def getUserTypes
     @user_types = UserType.all.map {|ut| [ut.user_type_name, ut.id]}

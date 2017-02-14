@@ -1,3 +1,3 @@
 class UserType < ApplicationRecord
-  attr_accessible :user_type_name
+  attr_accessor :user_type_name 
 end
