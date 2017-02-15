@@ -1,6 +1,6 @@
 #Controller to monitor user treatment records such as prescription/medicines/surgeries.
 class UserPatientsController < ApplicationController
-  # before_filter :authenticate
+  before_filter :authenticate
 
   #Action to render add prescription/medicines/surgery page in a dialog box through Ajax.
   # The page is rendered by new.js.erb, where doctor can enter prescription or surgery information for a patient.
@@ -14,7 +14,7 @@ class UserPatientsController < ApplicationController
 
   #Action to create prescription/medicine/surgery information corresponding to a patient in the database.
   def create
-     @user_patient = UserPatient.create(params[:user_patient])
+     @user_patient = UserPatient.new(user_patient_params)
      if @user_patient.save
        @flashMessage = {:success => t(:patient_treatment, :scope => :messages)}
      else
@@ -46,5 +46,9 @@ class UserPatientsController < ApplicationController
        format.js
       format.html
     end
+  end
+  private
+  def user_patient_params
+    params.require(:user_patient).permit(:user_id, :patient_id, :comments, :amount, :comment_type_id, :archive)
   end
 end
